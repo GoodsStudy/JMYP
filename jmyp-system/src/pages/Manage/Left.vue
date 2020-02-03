@@ -87,7 +87,6 @@ export default {
     btn() {
       this.isok = !this.isok;
       window.console.log(666);
-      window.console.log(666);
     }
   },
   computed:{
@@ -112,5 +111,8 @@ export default {
   .el-menu {
     border-right: none;
   }
+}
+.el-menu-item{
+  width: 180px;
 }
 </style>

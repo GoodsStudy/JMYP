@@ -17,6 +17,10 @@ export default {
     $route(to,from){
        this.$store.commit('active',to.path)
     }
+  },
+  created(){
+    //刷新选中的导航栏index不改变
+      this.$store.commit('active',this.$route.path)
   }
 
 }
