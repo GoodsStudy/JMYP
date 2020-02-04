@@ -78,15 +78,97 @@
         </template>
       </el-table-column>
     </el-table>
+    <Base
+      :options="options"
+      :total="20"
+      :page="[5,10, 15]"
+      @pagination="toPagination"
+      @number="toNumber"
+    />
   </div>
 </template>
 
 <script>
 import xiaomi from "../../assets/xiaomi.jpg";
+import Base from "../Content/base";
 export default {
   data() {
     return {
+      options: [
+        {
+          value: "商品上架",
+          label: "商品上架"
+        },
+        {
+          value: "商品下架",
+          label: "商品下架"
+        },
+        {
+          value: "设置推荐",
+          label: "设置推荐"
+        },
+        {
+          value: "取消推荐",
+          label: "取消推荐"
+        },
+        {
+          value: "设为新品",
+          label: "设为新品"
+        },
+        {
+          value: "取消新品",
+          label: "取消新品"
+        },
+        {
+          value: "转移分类",
+          label: "转移分类"
+        },
+        {
+          value: "移入回收站",
+          label: "移入回收站"
+        }
+      ],
       tableData: [
+        {
+          id: "20200203",
+          img: xiaomi,
+          name: { name: "华为 HUAWEI P20", classify: "华为" },
+          price: { price: "3788", goodsID: "6946605" },
+          label: { putaway: true, newProduct: true, recommend: false },
+          sort: 100,
+          sales: 0,
+          audit: "未审核"
+        },
+        {
+          id: "20200203",
+          img: xiaomi,
+          name: { name: "华为 HUAWEI P20", classify: "华为" },
+          price: { price: "3788", goodsID: "6946605" },
+          label: { putaway: true, newProduct: true, recommend: false },
+          sort: 100,
+          sales: 0,
+          audit: "未审核"
+        },
+        {
+          id: "20200203",
+          img: xiaomi,
+          name: { name: "华为 HUAWEI P20", classify: "华为" },
+          price: { price: "3788", goodsID: "6946605" },
+          label: { putaway: true, newProduct: true, recommend: false },
+          sort: 100,
+          sales: 0,
+          audit: "未审核"
+        },
+        {
+          id: "20200203",
+          img: xiaomi,
+          name: { name: "华为 HUAWEI P20", classify: "华为" },
+          price: { price: "3788", goodsID: "6946605" },
+          label: { putaway: true, newProduct: true, recommend: false },
+          sort: 100,
+          sales: 0,
+          audit: "未审核"
+        },
         {
           id: "20200203",
           img: xiaomi,
@@ -111,10 +193,21 @@ export default {
       multipleSelection: []
     };
   },
+  components: {
+    Base
+  },
   methods: {
     handleSelectionChange(val) {
       //table 选中的的返回到multipleSelection
       this.multipleSelection = val;
+    },
+    toPagination(val) {
+      //子组件返回的页数
+      console.log(val);
+    },
+    toNumber(val) {
+      //返回当前一页多少条数据
+      console.log(val);
     }
   }
 };
