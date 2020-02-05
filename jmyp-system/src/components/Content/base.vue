@@ -19,7 +19,7 @@
 </template>
 <script>
 export default {
-  props: ["options","total","page"],
+  props: ["options", "total", "page"],
   data() {
     return {
       value: "",
@@ -34,12 +34,12 @@ export default {
     handleSizeChange(val) {
       //但前一页显示的条数
       console.log(`每页 ${val} 条`);
-      this.$emit('number',val)
+      this.$emit("number", val);
     },
     handleCurrentChange(val) {
       //当前页数
       console.log(`当前页: ${val}`);
-      this.$emit('pagination',val)
+      this.$emit("pagination", val);
     }
   }
 };
@@ -47,7 +47,7 @@ export default {
 
 <style lang="scss" scoped>
 .base {
-  margin-top: 20px;
+  margin: 20px 0;
   .button {
     margin-left: 20px;
   }
