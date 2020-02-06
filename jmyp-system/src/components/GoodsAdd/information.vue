@@ -106,14 +106,14 @@
           <el-input type="textarea" v-model="form.remark" size="small"></el-input>
         </el-form-item>
         <el-form-item class="next">
-          <el-button @click="previous">上一步，填写商品促销</el-button>
-          <el-button type="primary" @click="onSubmit">下一步，填写商品促销</el-button>
+          <el-button @click="previous">上一步，填写商品信息</el-button>
+          <el-button type="primary" @click="onSubmit">下一步，填写商品属性</el-button>
           <!-- <el-button>取消</el-button> -->
         </el-form-item>
       </div>
       <div v-show="active === 2">
         <el-form-item label="属性类型：">
-          <el-select v-model="form.propertyType" placeholder="请选择">
+          <el-select v-model="form.propertyType" size="small" placeholder="请选择">
             <el-option
               v-for="item in form.options2"
               :key="item.value"
@@ -123,7 +123,70 @@
           </el-select>
         </el-form-item>
         <el-form-item label="商品规格：">
-          <el-input v-model="form.marketPrice" size="small"></el-input>
+          <el-row :gutter="12" :body-style="{margin:0}">
+            <el-col :span="8">
+              <el-card
+                shadow="never"
+                :body-style="{ background: '#f8f9fc',  width: '600px',margin:0}"
+              >
+                <div
+                  v-show="form.propertyType === '服装-T恤' || form.propertyType === '服装-裤装' || form.propertyTyp==='手机数码-手机通讯'"
+                >
+                  <p>颜色：</p>
+                  <div>
+                    <el-input class="color" size="small" v-model="form.color" placeholder="请输入内容"></el-input>
+                    <el-button size="small" @click="addColor">增加</el-button>
+                  </div>
+                </div>
+
+                <div v-show="form.propertyType === '服装-T恤'">
+                  <p>尺寸：</p>
+                  <el-form ref="form" label-width="80px">
+                    <el-checkbox @change="change($event,'M')">M</el-checkbox>
+                    <el-checkbox @change="change($event,'X')">X</el-checkbox>
+                    <el-checkbox @change="change($event,'XL')">XL</el-checkbox>
+                    <el-checkbox @change="change($event,'2XL')">2XL</el-checkbox>
+                    <el-checkbox @change="change($event,'3XL')">3XL</el-checkbox>
+                    <el-checkbox @change="change($event,'4XL')">4XL</el-checkbox>
+                  </el-form>
+                </div>
+                <div v-show="form.propertyType === '服装-裤装'">
+                  <p>尺寸：</p>
+                  <el-form ref="form" label-width="80px">
+                    <el-checkbox @change="change($event,'29')">29</el-checkbox>
+                    <el-checkbox @change="change($event,'30')">30</el-checkbox>
+                    <el-checkbox @change="change($event,'31')">31</el-checkbox>
+                    <el-checkbox @change="change($event,'32')">32</el-checkbox>
+                    <el-checkbox @change="change($event,'33')">33</el-checkbox>
+                    <el-checkbox @change="change($event,'34')">34</el-checkbox>
+                  </el-form>
+                </div>
+                <div v-show="form.propertyType === '手机数码-手机通讯'">
+                  <p>容量：</p>
+                  <el-form ref="form" label-width="80px">
+                    <el-checkbox @change="change($event,'16G')">16G</el-checkbox>
+                    <el-checkbox @change="change($event,'32G')">32G</el-checkbox>
+                    <el-checkbox @change="change($event,'64G')">64G</el-checkbox>
+                    <el-checkbox @change="change($event,'128G')">128G</el-checkbox>
+                  </el-form>
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+          <el-table :data="form.tableData" border style="width: 100%">
+            <el-table-column prop="date" label="销售价格" width="80" align="center"></el-table-column>
+            <el-table-column prop="name" label="商品库存" width="80" align="center"></el-table-column>
+            <el-table-column prop="address" label="库存预警" width="80" align="center"></el-table-column>
+            <el-table-column prop="name" label="SKU编号" align="center"></el-table-column>
+            <el-table-column prop="address" label="操作" width="80" align="center"></el-table-column>
+          </el-table>
+          <el-button size="small" type="primary">刷新列表</el-button>
+          <el-button size="small" type="primary">同步价格</el-button>
+          <el-form-item class="next">
+            <el-button @click="previous">上一步，填写商品促销</el-button>
+            <el-button type="primary" @click="onSubmit">下一步，填写商品促销</el-button>
+            <!-- <el-button>取消</el-button> -->
+          </el-form-item>
         </el-form-item>
       </div>
     </el-form>
@@ -164,6 +227,9 @@ export default {
         keyword: "", //商品关键字
         remark: "", //商品备注
         propertyType: "", //属性类型
+        color: "", //商品颜色
+        size: [], //商品尺码、尺寸、容量
+        ColorSize: {}, //要添加的商品颜色和尺码
         options: [
           {
             value: "zhinan",
@@ -434,26 +500,31 @@ export default {
         ],
         options2: [
           {
-            value: "选项1",
-            label: "黄金糕"
+            value: "服装-T恤",
+            label: "服装-T恤"
           },
           {
-            value: "选项2",
-            label: "双皮奶"
+            value: "服装-裤装",
+            label: "服装-裤装"
           },
           {
-            value: "选项3",
-            label: "蚵仔煎"
+            value: "手机数码-手机通讯",
+            label: "手机数码-手机通讯"
           },
           {
-            value: "选项4",
-            label: "龙须面"
+            value: "配件",
+            label: "配件"
           },
           {
-            value: "选项5",
-            label: "北京烤鸭"
+            value: "居家",
+            label: "居家"
+          },
+          {
+            value: "洗护",
+            label: "洗护"
           }
-        ]
+        ],
+        tableData: []
       }
     };
   },
@@ -472,6 +543,15 @@ export default {
     previous() {
       //上一步
       this.active = this.active - 1;
+    },
+    addColor() {
+      //添加商品颜色
+      // this.form.color.trim() && this.form.size?ColorSize{}
+    },
+    change(event, value) {
+      let arr = JSON.parse(JSON.stringify(this.form.size));
+      event ? arr.push(value) : arr.splice(arr.indexOf(value), 1);
+      this.$set(this.form, "size", arr);
     }
   }
 };
@@ -488,6 +568,17 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .el-row,
+  .el-col-8 {
+    width: 600px;
+    border: 0px;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .color {
+    width: 160px;
+    margin-right: 15px;
   }
 }
 </style>
