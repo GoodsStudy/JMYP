@@ -133,6 +133,12 @@
                   v-show="form.propertyType === '服装-T恤' || form.propertyType === '服装-裤装' || form.propertyTyp==='手机数码-手机通讯'"
                 >
                   <p>颜色：</p>
+                  <el-form ref="form" label-width="80px" v-show="form.Colors.length">
+                    <el-checkbox v-for="(item,index) in form.Colors" :key="index">
+                      {{item}}
+                      <el-button type="text" size="small" @click="deldete(index)">删除</el-button>
+                    </el-checkbox>
+                  </el-form>
                   <div>
                     <el-input class="color" size="small" v-model="form.color" placeholder="请输入内容"></el-input>
                     <el-button size="small" @click="addColor">增加</el-button>
@@ -229,7 +235,8 @@ export default {
         propertyType: "", //属性类型
         color: "", //商品颜色
         size: [], //商品尺码、尺寸、容量
-        ColorSize: {}, //要添加的商品颜色和尺码
+        Colors: [], //颜色集合
+        tableData: [], //要添加的商品颜色和尺码
         options: [
           {
             value: "zhinan",
@@ -546,12 +553,36 @@ export default {
     },
     addColor() {
       //添加商品颜色
-      // this.form.color.trim() && this.form.size?ColorSize{}
+      if (this.form.color.trim() && this.form.size.length) {
+        this.form.Colors.push(this.form.color);
+        this.form.size.map(item => {
+          this.form.tableData.push({ color: this.form.color, size: item });
+        });
+        this.form.color = "";
+      } else {
+        this.$message({
+          message: "属性值不能为空",
+          type: "warning"
+        });
+      }
     },
     change(event, value) {
-      let arr = JSON.parse(JSON.stringify(this.form.size));
-      event ? arr.push(value) : arr.splice(arr.indexOf(value), 1);
-      this.$set(this.form, "size", arr);
+      event
+        ? this.form.size.push(value)
+        : this.form.size.splice(this.form.size.indexOf(value), 1);
+    },
+    deldete(number) {
+      //删除添加的颜色类型
+      console.log(this.form.tableData);
+      this.form.tableData.map(async (item, index) => {
+        console.log(item.color, this.form.Colors[number]);
+        if (item.color == this.form.Colors[number]) {
+          await this.form.tableData.splice(index, 1);
+          console.log(index);
+        }
+      });
+      this.form.Colors.splice(number, 1);
+      console.log(this.form.tableData);
     }
   }
 };
