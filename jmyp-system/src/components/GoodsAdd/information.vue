@@ -134,13 +134,23 @@
                 >
                   <p>颜色：</p>
                   <el-form ref="form" label-width="80px" v-show="form.Colors.length">
-                    <el-checkbox v-for="(item,index) in form.Colors" :key="index">
-                      {{item}}
+                    <el-checkbox
+                      v-for="(item,index) in form.Colors"
+                      :key="index"
+                      v-model="item.checked"
+                    >
+                      {{item.color}}
                       <el-button type="text" size="small" @click="deldete(index)">删除</el-button>
                     </el-checkbox>
                   </el-form>
                   <div>
-                    <el-input class="color" size="small" v-model="form.color" placeholder="请输入内容"></el-input>
+                    <el-input
+                      class="color"
+                      size="small"
+                      v-model="form.color"
+                      clearable
+                      placeholder="请输入内容"
+                    ></el-input>
                     <el-button size="small" @click="addColor">增加</el-button>
                   </div>
                 </div>
@@ -180,13 +190,47 @@
             </el-col>
           </el-row>
           <el-table :data="form.tableData" border style="width: 100%">
-            <el-table-column prop="date" label="销售价格" width="80" align="center"></el-table-column>
-            <el-table-column prop="name" label="商品库存" width="80" align="center"></el-table-column>
-            <el-table-column prop="address" label="库存预警" width="80" align="center"></el-table-column>
-            <el-table-column prop="name" label="SKU编号" align="center"></el-table-column>
-            <el-table-column prop="address" label="操作" width="80" align="center"></el-table-column>
+            <el-table-column
+              v-show="form.tableData.length"
+              prop="color"
+              label="颜色"
+              width="93"
+              align="center"
+            ></el-table-column>
+            <el-table-column
+              v-show="form.tableData.length"
+              prop="size"
+              label="尺寸"
+              width="93"
+              align="center"
+            ></el-table-column>
+            <el-table-column prop="date" label="销售价格" width="80" align="center">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.price"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="name" label="商品库存" width="80" align="center">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.kc"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="warningKC" label="库存预警" width="80" align="center">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.warningKC"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="SKUId" label="SKU编号" align="center">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.SKUId"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="deldete" label="操作" width="80" align="center">
+              <template slot-scope="scope">
+                <el-button type="text" @click="stripDelete(scope.row.deldete)">删除</el-button>
+              </template>
+            </el-table-column>
           </el-table>
-          <el-button size="small" type="primary">刷新列表</el-button>
+          <el-button size="small" type="primary" @click="refresh">刷新列表</el-button>
           <el-button size="small" type="primary">同步价格</el-button>
           <el-form-item class="next">
             <el-button @click="previous">上一步，填写商品促销</el-button>
@@ -554,9 +598,10 @@ export default {
     addColor() {
       //添加商品颜色
       if (this.form.color.trim() && this.form.size.length) {
-        this.form.Colors.push(this.form.color);
-        this.form.size.map(item => {
-          this.form.tableData.push({ color: this.form.color, size: item });
+        this.form.Colors.push({
+          color: this.form.color,
+          checked: false,
+          size: JSON.parse(JSON.stringify(this.form.size))
         });
         this.form.color = "";
       } else {
@@ -573,16 +618,44 @@ export default {
     },
     deldete(number) {
       //删除添加的颜色类型
-      console.log(this.form.tableData);
-      this.form.tableData.map(async (item, index) => {
-        console.log(item.color, this.form.Colors[number]);
-        if (item.color == this.form.Colors[number]) {
-          await this.form.tableData.splice(index, 1);
-          console.log(index);
-        }
-      });
+      let arr = [];
+      if (this.form.Colors[number].checked) {
+        this.form.tableData.map((item, index) => {
+          if (item.color != this.form.Colors[number].color) {
+            arr.push(item);
+          }
+        });
+        this.form.tableData = arr;
+      }
       this.form.Colors.splice(number, 1);
-      console.log(this.form.tableData);
+    },
+    refresh() {
+      //将选中的颜色刷新到table中
+      let arr = [];
+      this.form.Colors.map(item => {
+        item.checked
+          ? item.size.map((data, index) => {
+              arr.push({
+                color: item.color, //table颜色
+                size: data, //尺寸
+                price: "", //价格
+                kc: "", //库存量
+                warningKC: "", //预警库存
+                SKUId: "", //SKU编号
+                deldete: { color: item.color, size: data } //数据顺序
+              });
+            })
+          : null;
+      });
+      this.form.tableData = arr;
+    },
+    stripDelete(data) {
+      //table数据单条删除
+      this.form.tableData.map((item, index) => {
+        item.color == data.color && item.size == data.size
+          ? this.form.tableData.splice(index, 1)
+          : null;
+      });
     }
   }
 };
@@ -602,7 +675,7 @@ export default {
   }
   .el-row,
   .el-col-8 {
-    width: 600px;
+    width: 590px;
     border: 0px;
     margin: 0 !important;
     padding: 0 !important;
