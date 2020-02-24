@@ -5,10 +5,7 @@
       <StepOne :form="this.form" :active="this.active" @next="onSubmit" />
       <StepTwo :form="this.form" :active="this.active" @next="onSubmit" @previous="previous" />
       <StepThree :form="this.form" :active="this.active" @next="onSubmit" @previous="previous" />
-<<<<<<< HEAD
       <StepFour :form="this.form" :active="this.active" @previous="previous"/>
-=======
->>>>>>> c85c4e4b32df7b290d79898b3aaa2f4cd9c493ae
     </el-form>
   </div>
 </template>
@@ -359,12 +356,8 @@ export default {
     Steps,
     StepOne,
     StepTwo,
-<<<<<<< HEAD
     StepThree,
     StepFour
-=======
-    StepThree
->>>>>>> c85c4e4b32df7b290d79898b3aaa2f4cd9c493ae
   },
   methods: {
     onSubmit() {

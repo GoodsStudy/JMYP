@@ -133,6 +133,7 @@
         </el-form-item>
       </el-form-item>
 
+
       <!-- 商品参数 -->
       <el-form-item label="商品参数：">
         <el-row :gutter="12" :body-style="{margin:0}">
@@ -210,7 +211,6 @@
 <script>
 export default {
   props: ["form", "active"],
-<<<<<<< HEAD
   data() {
     return {
       name: "",
@@ -218,8 +218,6 @@ export default {
       disabled: false
     };
   },
-=======
->>>>>>> c85c4e4b32df7b290d79898b3aaa2f4cd9c493ae
   methods: {
     previous() {
       this.$emit("previous");
@@ -227,13 +225,10 @@ export default {
     onSubmit() {
       this.$emit("next");
     },
-<<<<<<< HEAD
     changeType(value) {
       //属性类型回调
       console.log(value);
     },
-=======
->>>>>>> c85c4e4b32df7b290d79898b3aaa2f4cd9c493ae
     addColor() {
       //添加商品颜色
       if (this.form.color.trim() && this.form.size.length) {
@@ -295,7 +290,6 @@ export default {
           ? this.form.tableData.splice(index, 1)
           : null;
       });
-<<<<<<< HEAD
     },
     handlePictureCardPreview(file) {
       //图片放大
@@ -323,21 +317,15 @@ export default {
     onSubmit() {
       //下一步
       this.$emit("next");
-=======
->>>>>>> c85c4e4b32df7b290d79898b3aaa2f4cd9c493ae
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-<<<<<<< HEAD
 </style>
 <style lang="scss" scoped>
 .parameter {
   width: 250px;
 }
-=======
-
->>>>>>> c85c4e4b32df7b290d79898b3aaa2f4cd9c493ae
 </style>
