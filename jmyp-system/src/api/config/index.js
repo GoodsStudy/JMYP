@@ -57,6 +57,19 @@ const TopList = [{
     }]
 },
 {
+    path:'/manage/update',
+    list: [{
+        name: '首页',
+        path: '/manage'
+    }, {
+        name: '商品',
+        path: '/manage/goods'
+    }, {
+        name: '修改商品分类',
+        path: '/manage/update'
+    }]
+},
+{
     path:'/manage/comodity',
     list: [{
         name: '首页',

@@ -80,10 +80,6 @@
     </el-table>
     <Base
       :options="options"
-      :total="20"
-      :page="[5,10, 15]"
-      @pagination="toPagination"
-      @number="toNumber"
     />
   </div>
 </template>

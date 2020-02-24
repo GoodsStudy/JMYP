@@ -20,6 +20,10 @@ const manage = [{
     {
         path: 'comodity',
         component: () => import('../../pages/Goods/GoodsComodity')
+    },
+    {
+        path: 'update',
+        component: () => import('../../components/GoodsClassify/UpdateGood')
     }
     ]
 }]

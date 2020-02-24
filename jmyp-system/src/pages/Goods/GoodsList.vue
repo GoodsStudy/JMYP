@@ -10,7 +10,7 @@
 
 <script>
 import GoodsSearch from '../../components/GoodsList/search'
-import GoodsList from '../../components/GoodsList/list'
+import GoodsList from '../../components/Content/list'
 import GoodsTable from '../../components/GoodsList/table'
 export default {
     components:{

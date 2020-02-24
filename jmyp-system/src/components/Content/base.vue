@@ -4,26 +4,16 @@
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
     </el-select>
     <el-button class="button" type="primary" size="small">确定</el-button>
-
-    <el-pagination
-      class="pagination"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="page"
-      :page-size="5"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total"
-    ></el-pagination>
+    <Pagination :total="20" :page="[5,10, 15]" @pagination="toPagination" @number="toNumber" />
   </div>
 </template>
 <script>
+import Pagination from "./Pagination";
 export default {
-  props: ["options", "total", "page"],
+  props: ["options"],
   data() {
     return {
-      value: "",
-      currentPage4: 1
+      value: ""
     };
   },
   methods: {
@@ -31,16 +21,17 @@ export default {
       //选择批量的操作
       console.log(this.value);
     },
-    handleSizeChange(val) {
-      //但前一页显示的条数
-      console.log(`每页 ${val} 条`);
-      this.$emit("number", val);
+    toPagination(val) {
+      //子组件返回的页数
+      console.log(val);
     },
-    handleCurrentChange(val) {
-      //当前页数
-      console.log(`当前页: ${val}`);
-      this.$emit("pagination", val);
+    toNumber(val) {
+      //返回当前一页多少条数据
+      console.log(val);
     }
+  },
+  components: {
+    Pagination
   }
 };
 </script>
