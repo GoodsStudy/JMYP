@@ -17,7 +17,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="sort" align="center" label="排序" width="100"></el-table-column>
-      <el-table-column prop="address" align="center" label="设置" width="200">
+      <el-table-column  align="center" label="设置" width="200">
         <template>
           <el-button size="mini" @click="subordinate">查看下级</el-button>
           <el-button size="mini" @click="transfer">转移商品</el-button>

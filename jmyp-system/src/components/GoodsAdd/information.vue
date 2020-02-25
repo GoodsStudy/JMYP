@@ -19,7 +19,7 @@ import StepFour from './stepFour'
 export default {
   data() {
     return {
-      active: 3,
+      active: 0,
       form: {
         type: "", //商品分类
         name: "", //商品名称

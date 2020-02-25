@@ -1,4 +1,10 @@
 <template>
+  <!-- 传入参数
+    :total="20"                     总页数
+    :page="[5,10, 15]"              当前页面多少页显示
+    @pagination="toPagination"      上一页的方法
+    @number="toNumber"              下一页的方法
+  -->
   <div class="pagination">
     <el-pagination
       class="pagination"

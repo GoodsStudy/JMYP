@@ -24,6 +24,14 @@ const manage = [{
     {
         path: 'update',
         component: () => import('../../components/GoodsClassify/UpdateGood')
+    },
+    {
+        path: 'attribute',
+        component: () => import('../../components/GoodsType/Attribute')
+    },
+    {
+        path: 'upadteattribute',
+        component: () => import('../../components/GoodsType/UpdateAttribute')
     }
     ]
 }]

@@ -2,19 +2,19 @@
   <div>
     <List />
     <Table />
-    <Base :total="20" :page="[5,10, 15]" @pagination="toPagination" @number="toNumber" />
+    <Pagination :total="20" :page="[5,10, 15]" @pagination="toPagination" @number="toNumber" />
   </div>
 </template>
 
 <script>
 import List from "../../components/Content/list";
 import Table from "../../components/GoodsClassify/Table";
-import Base from "../../components/Content/Pagination";
+import Pagination from "../../components/Content/Pagination";
 export default {
   components: {
     List,
     Table,
-    Base
+    Pagination
   },
   methods: {
     toPagination(val) {

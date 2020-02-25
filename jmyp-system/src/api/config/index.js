@@ -18,7 +18,7 @@ const TopList = [{
     }]
 },
 {
-    path:'/manage/add',
+    path: '/manage/add',
     list: [{
         name: '首页',
         path: '/manage'
@@ -31,7 +31,7 @@ const TopList = [{
     }]
 },
 {
-    path:'/manage/classify',
+    path: '/manage/classify',
     list: [{
         name: '首页',
         path: '/manage'
@@ -44,7 +44,7 @@ const TopList = [{
     }]
 },
 {
-    path:'/manage/type',
+    path: '/manage/type',
     list: [{
         name: '首页',
         path: '/manage'
@@ -57,7 +57,33 @@ const TopList = [{
     }]
 },
 {
-    path:'/manage/update',
+    path: '/manage/attribute',
+    list: [{
+        name: '首页',
+        path: '/manage'
+    }, {
+        name: '商品',
+        path: '/manage/goods'
+    }, {
+        name: '商品属性列表',
+        path: '/manage/attribute'
+    }]
+}, 
+{
+    path: '/manage/upadteattribute',
+    list: [{
+        name: '首页',
+        path: '/manage'
+    }, {
+        name: '商品',
+        path: '/manage/goods'
+    }, {
+        name: '商品属性列表',
+        path: '/manage/upadteattribute'
+    }]
+},
+{
+    path: '/manage/update',
     list: [{
         name: '首页',
         path: '/manage'
@@ -70,7 +96,7 @@ const TopList = [{
     }]
 },
 {
-    path:'/manage/comodity',
+    path: '/manage/comodity',
     list: [{
         name: '首页',
         path: '/manage'
