@@ -22,13 +22,11 @@
 </template>
 <script>
 import Vue from "vue";
-import axios from "axios";
-import qs from "qs";
 import { Button, Form, Input } from "element-ui";
-import md5 from '../../api/md5'
+import md5 from "../../api/md5";
 
 // import http from '@/api/http'
-
+import { Login } from "../serve/login";
 Vue.use(Button, Form, Input);
 export default {
   data() {
@@ -41,21 +39,22 @@ export default {
     login() {
       //登录
       if (this.name && this.pass) {
-        axios.post(
-            "http://localhost:3000/login",
-            qs.stringify({
-              name: this.name,
-              pass: md5(this.pass)
-            })
-          )
-          .then(({data}) => {
-            if(data.code){
-              this.$router.push({path:'manage'})
-              window.console.log( data.path)
-            }else{
+        let obj = {
+          name: this.name,
+          pass: md5(this.pass)
+        };
+        let res = Login(obj);
+        try {
+          res.then(data => {
+            if (data.code) {
+              this.$router.push({ path: "manage" });
+            } else {
               this.$alert("账号或密码不正确，请重新输入!", "提示");
             }
           });
+        } catch (error) {
+          this.$message.error(error);
+        }
       } else {
         this.$alert("账号密码不能为空", "提示");
       }
