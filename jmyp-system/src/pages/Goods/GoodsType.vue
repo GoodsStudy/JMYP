@@ -16,7 +16,7 @@ export default {
     Table,
     Pagination
   },
-  methpds: {
+  methods: {
     toPagination(val) {
       //子组件返回的页数
       console.log(val);

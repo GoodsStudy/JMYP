@@ -9,6 +9,7 @@ import Login from "./pages/Login/login.vue";
 export default {
   name: "app",
   components: {
+    // eslint-disable-next-line vue/no-unused-components
     Login
   }
 };

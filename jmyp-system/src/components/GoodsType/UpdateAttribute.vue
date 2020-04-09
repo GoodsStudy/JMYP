@@ -44,7 +44,7 @@
         <el-input
           type="textarea"
           style="width:538px"
-          :rows="1"
+          :rows="this.form.describe.split(',').length"
           placeholder="请输入内容"
           v-model="form.describe"
         ></el-input>
@@ -68,16 +68,16 @@ export default {
     return {
       form: {
         name: "",
+        type: "",
         classify: "1",
         navigation: "1",
         retrieve: "1",
         relevance: "1",
         attribute: "1",
-        type:'',
         add: "1",
         way: "1",
         sort: 100,
-        describe: ["黑色", "红色", "白色", "粉色"]
+        describe: "黑色,红色,白色,粉色",
       },
       options: [
         {
@@ -106,7 +106,7 @@ export default {
   methods: {
     submit() {
       //提交
-      console.log(this.form);
+      console.log(this.form.describe.split(',').length);
       //   this.$router.push({ path: "/manage/classify" });
     }
   }
