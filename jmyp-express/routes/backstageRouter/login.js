@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const mysql = require('../api/mysql');
-const admin = require('../api/router/admin')
-const user = require('../api/router/user')
+const mysql = require('../../api/mysql');
+const admin = require('../../api/router/admin')
+const user = require('../../api/router/user')
 
 
 /* GET home page. */
 router.post('/', async function (req, res, next) {
   res.append('Access-Control-Allow-Origin', '*');
   const body = req.body   //接受post参数
+  console.log(body)
 
   const data = {}   //返回的data数据
 
