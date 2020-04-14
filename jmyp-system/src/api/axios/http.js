@@ -3,6 +3,7 @@
   */
 import axios from 'axios'; import QS from 'qs';
 import store from '../../state/index'
+import router from '../../router/index'
 
 // 环境的切换
 //  if (process.env.NODE_ENV == 'development') {

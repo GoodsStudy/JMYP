@@ -165,9 +165,9 @@
       <!-- 商品相册 -->
       <el-form-item label="商品相册：">
         <el-upload
-          action="#"
+          action="http://localhost:3000/upload"
           list-type="picture-card"
-          :auto-upload="false"
+          :auto-upload="true"
           @before-upload="success(file)"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
