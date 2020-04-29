@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log("submit!");
+      window.console.log("submit!");
     }
   }
 };

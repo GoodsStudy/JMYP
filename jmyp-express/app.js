@@ -7,8 +7,12 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/backstageRouter/backstage-user');
 var loginRouter = require('./routes/backstageRouter/backstage-login');
-var appLoginRouter = require('./routes/appRouter/app-login');
 var uploadRouter = require('./routes/backstageRouter/upload/backstage-upload')
+
+/******************************************************app商城接口****************************************************************************/
+var appRegsRouter = require('./routes/appRouter/app-login/login-reg')
+var appLogin = require('./routes/appRouter/app-login/login-log')
+
 
 var app = express();
 
@@ -25,8 +29,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
-app.use('/appLogin',appLoginRouter);
 app.use('/upload',uploadRouter)
+
+/******************************************************app商城接口****************************************************************************/
+app.use('/appRegs',appRegsRouter)
+app.use('/appLogin',appLogin)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

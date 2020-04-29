@@ -14,9 +14,9 @@ export default {
   },
   watch:{
     /**监听路由的变化，当点击top组件的跳转时，导航栏的index也随着改变 */
-    $route(to,from){
-       this.$store.commit('active',to.path)
-    }
+    // $route(to,from){
+    //    this.$store.commit('active',to.path)
+    // }
   },
   created(){
     //刷新选中的导航栏index不改变
