@@ -10,8 +10,9 @@ var loginRouter = require('./routes/backstageRouter/backstage-login');
 var uploadRouter = require('./routes/backstageRouter/upload/backstage-upload')
 
 /******************************************************app商城接口****************************************************************************/
-var appRegsRouter = require('./routes/appRouter/app-login/login-reg')
-var appLogin = require('./routes/appRouter/app-login/login-log')
+let appRegsRouter = require('./routes/appRouter/app-login/login-reg')
+let appLogin = require('./routes/appRouter/app-login/login-log')
+let appSelect = require('./routes/appRouter/app-goods/goods-select')
 
 
 var app = express();
@@ -34,6 +35,7 @@ app.use('/upload',uploadRouter)
 /******************************************************app商城接口****************************************************************************/
 app.use('/appRegs',appRegsRouter)
 app.use('/appLogin',appLogin)
+app.use('/appSelect',appSelect)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
